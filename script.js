@@ -2,6 +2,12 @@
 const card = document.getElementById('birthdayCard');
 const cascadeContainer = document.getElementById('watermelonCascade');
 
+// Constants
+const INITIAL_WATERMELON_BURST = 15;
+const WATERMELON_INTERVAL_MS = 200;
+const MAX_WATERMELONS = 25;
+const TOUCH_THRESHOLD_PX = 10;
+
 let isOpened = false;
 let cascadeInterval = null;
 
@@ -52,7 +58,7 @@ function createFallingWatermelon() {
 // Start watermelon cascade
 function startWatermelonCascade() {
     // Create initial burst of watermelons
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < INITIAL_WATERMELON_BURST; i++) {
         setTimeout(() => {
             createFallingWatermelon();
         }, i * 100);
@@ -64,11 +70,11 @@ function startWatermelonCascade() {
         createFallingWatermelon();
         count++;
         
-        // Stop after 5 seconds (approximately 25 watermelons)
-        if (count > 25) {
+        // Stop after creating MAX_WATERMELONS
+        if (count > MAX_WATERMELONS) {
             clearInterval(cascadeInterval);
         }
-    }, 200);
+    }, WATERMELON_INTERVAL_MS);
 }
 
 // Touch support for mobile devices
@@ -83,7 +89,7 @@ card.addEventListener('touchend', function(e) {
     touchEndY = e.changedTouches[0].screenY;
     
     // Prevent default behavior if not scrolling
-    if (Math.abs(touchEndY - touchStartY) < 10 && !isOpened) {
+    if (Math.abs(touchEndY - touchStartY) < TOUCH_THRESHOLD_PX && !isOpened) {
         openCard();
         isOpened = true;
     }
