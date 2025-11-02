@@ -26,6 +26,11 @@
             font-family: 'Pacifico', cursive;
         }
 
+        .card {
+            /* Asegura que la tarjeta mantenga su posición */
+            will-change: auto;
+        }
+
         .card-inner {
             position: relative;
             width: 100%;
@@ -33,10 +38,14 @@
             transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             /* Importante: Habilita el 3D para los hijos */
             transform-style: preserve-3d;
+            /* Previene el desplazamiento durante la rotación */
+            transform-origin: center center;
         }
 
         .card.is-flipped .card-inner {
             transform: rotateY(180deg);
+            /* Mantiene la tarjeta en su posición durante y después de la rotación */
+            transform-origin: center center;
         }
 
         .card-face {
@@ -143,8 +152,9 @@
  * 1. Se añade [perspective:1200px] al BODY.
  * Ahora el BODY es el "escenario" 3D.
  * 2. Se mantienen las clases de centrado (flex, items-center, justify-center).
+ * 3. Se añade overflow-hidden para evitar scroll durante animación
 -->
-<body class="bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4 [perspective:1200px]">
+<body class="bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center p-4 [perspective:1200px] overflow-hidden">
 
     <!--
      * --- AJUSTE CLAVE ---
@@ -152,7 +162,7 @@
      * La tarjeta ya no es el escenario, solo es un "actor" centrado.
      * Su posición en el layout de flexbox NO cambiará durante la animación.
     -->
-    <div class="card w-full max-w-sm h-auto aspect-[9/15] max-h-[90vh] sm:max-w-md sm:max-h-[650px]" id="invitationCard">
+    <div class="card w-full max-w-sm h-auto aspect-[9/15] max-h-[90vh] sm:max-w-md sm:max-h-[650px] relative" id="invitationCard" style="transform-style: preserve-3d;">
         
         <div class="card-inner w-full h-full">
 
