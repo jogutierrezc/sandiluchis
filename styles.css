@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 50%, #ff69b4 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.container {
+    perspective: 1500px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.card.opened {
+    transform: rotateY(-180deg);
+    cursor: default;
+}
+
+.card-front,
+.card-inside {
+    position: absolute;
+    width: 100%;
+    min-height: 400px;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-front {
+    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.flowers-decoration {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 2em;
+}
+
+.flower {
+    animation: float 3s ease-in-out infinite;
+}
+
+.flower:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.flower:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.flower:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.watermelon-decoration {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 3em;
+}
+
+.watermelon {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.watermelon:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.card-front h1 {
+    font-size: 2.5em;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.tap-text {
+    font-size: 1.2em;
+    margin-top: 20px;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.card-inside {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+    transform: rotateY(180deg);
+    display: flex;
+    gap: 20px;
+}
+
+.left-panel {
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.flowers-inside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 3em;
+}
+
+.flower-small {
+    animation: rotate 3s linear infinite;
+}
+
+.flower-small:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.flower-small:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #c71585;
+}
+
+.right-panel h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #ff1493;
+}
+
+.message {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.signature {
+    font-size: 1.2em;
+    font-style: italic;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Watermelon cascade */
+.watermelon-cascade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.falling-watermelon {
+    position: absolute;
+    font-size: 3em;
+    animation: fall linear;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .card-front h1 {
+        font-size: 2em;
+    }
+
+    .tap-text {
+        font-size: 1em;
+    }
+
+    .flowers-decoration {
+        font-size: 1.5em;
+    }
+
+    .watermelon-decoration {
+        font-size: 2em;
+    }
+
+    .card-front,
+    .card-inside {
+        min-height: 350px;
+        padding: 30px 20px;
+    }
+
+    .card-inside {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        flex: 0 0 80px;
+    }
+
+    .flowers-inside {
+        flex-direction: row;
+        font-size: 2em;
+    }
+
+    .right-panel h2 {
+        font-size: 1.4em;
+    }
+
+    .message {
+        font-size: 1em;
+    }
+
+    .falling-watermelon {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-front h1 {
+        font-size: 1.8em;
+    }
+
+    .tap-text {
+        font-size: 0.9em;
+    }
+
+    .card-front,
+    .card-inside {
+        min-height: 300px;
+        padding: 25px 15px;
+    }
+
+    .right-panel h2 {
+        font-size: 1.2em;
+    }
+
+    .message {
+        font-size: 0.9em;
+    }
+
+    .falling-watermelon {
+        font-size: 1.5em;
+    }
+}
